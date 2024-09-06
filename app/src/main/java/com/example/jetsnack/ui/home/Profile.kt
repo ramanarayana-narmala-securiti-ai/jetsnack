@@ -19,7 +19,10 @@ package com.example.jetsnack.ui.home
 import ai.securiti.cmpsdkcore.main.SecuritiMobileCmp
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.Intent
 import android.content.res.Configuration
+import android.net.Uri
+import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -93,6 +96,24 @@ fun Profile(
             )
         ) {
             Text("My Preferences")
+        }
+        Spacer(Modifier.height(16.dp))
+        Button(
+            onClick = {
+                context.getActivity()?.let {
+                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                    val uri = Uri.fromParts("package", "com.example.jetsnack", null)
+                    intent.data = uri
+                    it.startActivity(intent)
+                }
+            },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Blue,
+                contentColor = Color.White
+
+            )
+        ) {
+            Text("Update App Permissions")
         }
     }
 }
