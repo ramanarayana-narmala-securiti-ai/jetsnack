@@ -23,6 +23,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
 import android.provider.Settings
+import android.view.Gravity
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -41,13 +42,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
+import android.widget.Toast
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetsnack.R
 import com.example.jetsnack.ui.theme.JetsnackTheme
+import androidx.compose.foundation.layout.*
 
 @Composable
 fun Profile(
@@ -59,6 +63,7 @@ fun Profile(
         else -> null
     }
     val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
@@ -66,11 +71,6 @@ fun Profile(
             .wrapContentSize()
             .padding(24.dp)
     ) {
-        Image(
-            painterResource(R.drawable.empty_state_search),
-            contentDescription = null
-        )
-        Spacer(Modifier.height(24.dp))
         Text(
             text = stringResource(R.string.work_in_progress),
             style = MaterialTheme.typography.titleMedium,
@@ -96,6 +96,26 @@ fun Profile(
             )
         ) {
             Text("My Preferences")
+        }
+        Spacer(Modifier.height(16.dp))
+        Button(
+            onClick = {
+                context.getActivity()?.let {
+                    SecuritiMobileCmp.resetConsent()
+                    coroutineScope.launch {
+                        val toast = Toast.makeText(context, "Consents Cleared!", Toast.LENGTH_SHORT)
+                        toast.setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 0)
+                        toast.show()
+                    }
+                }
+            },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Red,
+                contentColor = Color.White
+
+            )
+        ) {
+            Text("Reset Consent")
         }
         Spacer(Modifier.height(16.dp))
         Button(
