@@ -10,9 +10,25 @@ project from Android Studio following the steps
 
 This sample showcases:
 
-* How to implement a custom design system
-* Custom layout
-* Animation
+* Show Consent Banner
+* Show Consent Preference Center
+
+## Consent Code
+
+Kotlin code to show the consent banner and preference center
+
+**File: app/src/main/java/com/example/jetsnack/SecuritiBanner.kt**
+```kotlin
+val options = CmpSDKOptions(
+    appURL = "https://<API_HOST>",
+    cdnURL = "https://<CDN_HOST>/consent",
+    tenantID = "b9153366-8d40-43b0-8009-e7c5f7342b6c",
+    appID = "e6c35be9-0159-4f5e-ad95-d7476ce39943",
+    testingMode = TestingMode.DRAFT,
+    loggerLevel = CmpSDKLoggerLevel.DEBUG,
+    backgroundTaskIntervalTime = 1
+)
+```
 
 ## Screenshots
 
