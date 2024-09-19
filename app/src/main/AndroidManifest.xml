@@ -14,13 +14,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <permission android:name="com.example.android.permission.MAPS_RECEIVE"
+        android:description="@string/permission_maps_receive_description"
+        android:label="@string/permission_maps_receive_label"
+        android:icon="@drawable/kiwi"
+        android:protectionLevel="dangerous" />
+
     <!--Load images from Unsplash-->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
+    <uses-permission android:name="com.example.android.permission.MAPS_RECEIVE" />
 
     <application
         android:allowBackup="true"

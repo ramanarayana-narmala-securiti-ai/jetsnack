@@ -76,4 +76,8 @@
     <string name="alphabetical">Alphabetical</string>
     <string name="close">Close</string>
 
+    <!-- Permissions -->
+    <string name="permission_maps_receive_description">This app requires access to your maps to show you the nearest snack shops.</string>
+    <string name="permission_maps_receive_label">Example Maps</string>
+
 </resources>
