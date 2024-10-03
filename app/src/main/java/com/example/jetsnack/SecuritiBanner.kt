@@ -18,7 +18,8 @@ object SecuritiBanner {
             appID = "e6c35be9-0159-4f5e-ad95-d7476ce39943",
             testingMode = false,
             loggerLevel = CmpSDKLoggerLevel.DEBUG,
-            backgroundTaskIntervalTime = 1
+            //languageCode= "en",
+            consentsCheckInterval = 2
         )
 
         SecuritiMobileCmp.initialize(activity.application, options)
