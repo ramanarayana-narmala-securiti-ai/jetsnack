@@ -137,5 +137,5 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("com.google.code.gson:gson:2.11.0")
     implementation("androidx.work:work-runtime-ktx:2.9.1")
-    implementation("ai.securiti.cmpsdkcore:consent-sdk:1.123.0")
+    implementation("ai.securiti.cmpsdkcore:consent-sdk:1.125.0")
 }
