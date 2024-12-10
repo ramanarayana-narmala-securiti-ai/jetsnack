@@ -3,6 +3,7 @@ package com.example.jetsnack
 import ai.securiti.cmpsdkcore.main.CmpSDKLoggerLevel
 import ai.securiti.cmpsdkcore.main.CmpSDKOptions
 import ai.securiti.cmpsdkcore.main.SecuritiMobileCmp
+import ai.securiti.cmpsdkcore.ui.SecuritiMobileCmpExtensions.Companion.presentConsentBanner
 import com.example.jetsnack.ui.MainActivity
 
 object SecuritiBanner {
@@ -23,7 +24,7 @@ object SecuritiBanner {
             tenantID = "5e2dcf33-6eae-427a-afa4-c7667ee32a11",
             appID = "fb6018c4-49a5-4ba6-b84a-7e193d09c47e",
             testingMode = false,
-            loggerLevel = CmpSDKLoggerLevel.WARNING,
+            loggerLevel = CmpSDKLoggerLevel.DEBUG,
             //languageCode= "en",
             consentsCheckInterval = 2
         )
@@ -32,10 +33,12 @@ object SecuritiBanner {
 
 
         SecuritiMobileCmp.isReady { isReady ->
-            println("Securiti Banner initialized")
-            SecuritiMobileCmp.presentConsentBanner(activity)
-            println("XXXXXX")
-            println(SecuritiMobileCmp.getConsent(1));
+            if(isReady) {
+                println("Securiti Banner initialized")
+                SecuritiMobileCmp.presentConsentBanner(activity)
+                println("XXXXXX")
+                println(SecuritiMobileCmp.getConsent(1).toString());
+            }
         }
     }
 }

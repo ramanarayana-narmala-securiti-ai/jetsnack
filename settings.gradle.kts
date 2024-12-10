@@ -34,8 +34,8 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven {
-            //url = uri("https://cdn-dev-intg-2.securiti.xyz/consent/maven")
-            url = uri("https://cdn-qa.securiti.xyz/consent/maven")
+            url = uri("https://cdn-dev-intg-2.securiti.xyz/consent/maven")
+//            url = uri("https://cdn-qa.securiti.xyz/consent/maven")
         }
     }
 }

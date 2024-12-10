@@ -17,6 +17,7 @@
 package com.example.jetsnack.ui.home
 
 import ai.securiti.cmpsdkcore.main.SecuritiMobileCmp
+import ai.securiti.cmpsdkcore.ui.SecuritiMobileCmpExtensions.Companion.presentPreferenceCenter
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
@@ -58,6 +59,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetsnack.R
 import com.example.jetsnack.ui.theme.JetsnackTheme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
@@ -75,6 +78,7 @@ fun Profile(
     var purposeStateLines by remember { mutableIntStateOf(3) }
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
+    var isVisible = rememberSaveable { mutableStateOf(false) }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
@@ -100,7 +104,8 @@ fun Profile(
         Button(
             onClick = {
                 purposeStateVisible = false
-                context.getActivity()?.let { SecuritiMobileCmp.presentPreferenceCenter(it) }
+                isVisible.value = true
+//                context.getActivity()?.let { SecuritiMobileCmp.presentPreferenceCenter(it) }
             },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Blue,
@@ -110,12 +115,19 @@ fun Profile(
         ) {
             Text("My Preferences")
         }
+
+        if(isVisible.value) {
+            SecuritiMobileCmp.presentPreferenceCenter() {
+                isVisible.value = false
+            }
+        }
+
         Spacer(Modifier.height(16.dp))
         Button(
             onClick = {
                 context.getActivity()?.let {
                     purposeStateVisible = false
-                    SecuritiMobileCmp.resetConsent()
+                    SecuritiMobileCmp.resetConsents()
                     coroutineScope.launch {
                         val toast = Toast.makeText(context, "Consents Cleared!", Toast.LENGTH_SHORT)
                         toast.setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 0)
@@ -155,19 +167,19 @@ fun Profile(
             onClick = {
                 context.getActivity()?.let {
                     purposeStateVisible = true
-                    val purposes = SecuritiMobileCmp.getPurposes()
-                    var pText = ""
-                    if (purposes != null) {
+                    coroutineScope.launch {
+                        val purposes = SecuritiMobileCmp.getPurposes()
+                        var pText = ""
                         for (purpose in purposes) {
                             pText += purpose.purposeName?.get("_").toString().trim('"') + ": " + purpose.purposeId?.let { it1 ->
-                                 SecuritiMobileCmp.getConsent(
+                                SecuritiMobileCmp.getConsent(
                                     it1
-                                ).consentStatus.toString()
+                                ).toString()
                             } + "\n"
                         }
                         purposeStateLines = 1 + purposes.size
+                        purposeStateText = pText
                     }
-                    purposeStateText = pText
                 }
             },
             colors = ButtonDefaults.buttonColors(
