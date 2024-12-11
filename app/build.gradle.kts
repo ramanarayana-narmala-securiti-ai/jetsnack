@@ -19,6 +19,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.compose)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -99,8 +100,6 @@ dependencies {
     androidTestImplementation(composeBom)
 
     implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlinx.coroutines.android)
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
@@ -137,6 +136,29 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("com.google.code.gson:gson:2.11.0")
     implementation("androidx.work:work-runtime-ktx:2.9.1")
-    implementation("ai.securiti.cmpsdkcore:consent-sdk:1.126.0")
+//    implementation("ai.securiti.cmpsdkcore:consent-sdk:1.126.0")
     //implementation("ai.securiti.cmpsdkcorebase:consent-sdk-base:1.126.0")
+
+    //or if you want to use AAR
+    implementation(files("libs/consent-sdk-1.126.0.aar"))
+
+    // Consent Core aar download link (change version as required)
+    // https://cdn-dev-intg-2.securiti.xyz/consent/maven/ai/securiti/cmpsdkcorebase/consent-sdk-base/1.126.0/consent-sdk-base-1.126.0.aar
+    //implementation(files("libs/consent-sdk-base-1.126.0.aar"))
+
+    // transitive dependencies for the Consent SDK aar from 1.126.0 onwards
+    implementation(libs.coroutines.core)
+    implementation(libs.coroutines.android)
+    implementation(libs.immutable.list)
+
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+    implementation(libs.koin.core.coroutines)
+
+    implementation(libs.play.services.ads.identifier)
+
+    implementation(libs.ktor.android)
+    implementation(libs.ktor.serialization)
+    implementation(libs.ktor.logging)
+    implementation(libs.ktor.content.negotiation)
 }
